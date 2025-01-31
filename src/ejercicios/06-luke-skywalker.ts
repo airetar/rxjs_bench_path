@@ -1,6 +1,6 @@
 import { ajax } from 'rxjs/ajax';
-import { switchMap, map, concatMap } from 'rxjs/operators';
-import { zip, of, pipe } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
+import { zip, of } from 'rxjs';
 
 /**
  * Ejercicio: 
@@ -39,47 +39,21 @@ import { zip, of, pipe } from 'rxjs';
 */
 
 
-/**
- * * V 1.1
- */
-
 (() =>{
-    console.log('============== V1.1 ==============');
+
     // No tocar ========================================================
     const SW_API = 'https://swapi.dev/api';                     
     const getRequest = ( url: string ) => ajax.getJSON<any>(url);
     // ==================================================================
 
     // Realizar el llamado al URL para obtener a Luke Skywalker
-    const personaje$ = getRequest(`${SW_API}/people/2`);
-    const especie$ =  personaje$.pipe(
+    getRequest(`Aquí va un URL`).pipe(
         // Realizar los operadores respectivos aquí
-        switchMap(firstResponse => {
-            if (firstResponse.species?.length) {
-                return ajax.getJSON(firstResponse.species[0])
-            }
-    }));
+        
 
-    zip(personaje$, especie$).pipe(map(([personaje, especie]) => ({ personaje, especie })))
-    // NO TOCAR el subscribe ni modificarlo ==
-    .subscribe( console.log )           // ==
-    // =======================================
-})();
 
-/**
- * * V 1.2
- */
+        
 
-(() =>{
-    // No tocar ========================================================
-    const SW_API = 'https://swapi.dev/api';                     
-    const getRequest = ( url: string ) => ajax.getJSON<any>(url);
-    // ==================================================================
-
-    // Realizar el llamado al URL para obtener a Luke Skywalker
-    getRequest(`${SW_API}/people/2`).pipe(
-        switchMap(response => zip(of(response), getRequest(response.species[0]))),
-        map(([personaje, especie]) => ({personaje, especie}))
     // NO TOCAR el subscribe ni modificarlo ==
     ).subscribe( console.log )           // ==
     // =======================================
@@ -88,4 +62,4 @@ import { zip, of, pipe } from 'rxjs';
 
 })();
 
-        
+		
